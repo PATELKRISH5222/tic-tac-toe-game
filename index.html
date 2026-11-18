@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ultimate Tic-Tac-Toe AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <header class="header">
+
+            <div class="online">
+                <span></span>
+                AI ONLINE
+            </div>
+
+            <h1>Tic-Tac-Toe <b>AI</b></h1>
+
+            <p>
+                Challenge an intelligent AI powered by
+                Minimax & Alpha-Beta Pruning
+            </p>
+
+        </header>
+
+
+        <!-- GAME SETTINGS -->
+
+        <section class="settings">
+
+            <div class="setting-box">
+
+                <label>Your Symbol</label>
+
+                <div class="buttons">
+
+                    <button class="symbol active" data-symbol="X">
+                        ✕ X
+                    </button>
+
+                    <button class="symbol" data-symbol="O">
+                        ○ O
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="setting-box">
+
+                <label>First Turn</label>
+
+                <div class="buttons">
+
+                    <button class="starter active" data-start="human">
+                        You
+                    </button>
+
+                    <button class="starter" data-start="ai">
+                        AI
+                    </button>
+
+                    <button class="starter" data-start="random">
+                        Random
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="setting-box difficulty-box">
+
+                <label>Difficulty</label>
+
+                <div class="buttons">
+
+                    <button class="difficulty" data-level="easy">
+                        Easy
+                    </button>
+
+                    <button class="difficulty" data-level="medium">
+                        Medium
+                    </button>
+
+                    <button class="difficulty active" data-level="hard">
+                        Hard
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SCORE -->
+
+        <section class="scores">
+
+            <div class="score-card you">
+
+                <span class="symbol-display" id="human-symbol">
+                    ✕
+                </span>
+
+                <div>
+                    <small>YOU</small>
+                    <strong id="wins">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="score-card draw">
+
+                <span class="symbol-display">
+                    =
+                </span>
+
+                <div>
+                    <small>DRAWS</small>
+                    <strong id="draws">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="score-card ai">
+
+                <span class="symbol-display" id="ai-symbol">
+                    ○
+                </span>
+
+                <div>
+                    <small>AI</small>
+                    <strong id="losses">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- GAME STATUS -->
+
+        <section class="status-bar">
+
+            <div class="turn-info">
+
+                <span id="turn-symbol">✕</span>
+
+                <span id="turn-text">
+                    Your Turn
+                </span>
+
+            </div>
+
+
+            <div class="move-counter">
+                MOVE <b id="move-number">0</b> / 9
+            </div>
+
+        </section>
+
+
+        <!-- BOARD -->
+
+        <section class="board" id="board">
+
+            <button type="button" class="cell" data-index="0" aria-label="Top Left"></button>
+            <button type="button" class="cell" data-index="1" aria-label="Top Center"></button>
+            <button type="button" class="cell" data-index="2" aria-label="Top Right"></button>
+
+            <button type="button" class="cell" data-index="3" aria-label="Middle Left"></button>
+            <button type="button" class="cell" data-index="4" aria-label="Center"></button>
+            <button type="button" class="cell" data-index="5" aria-label="Middle Right"></button>
+
+            <button type="button" class="cell" data-index="6" aria-label="Bottom Left"></button>
+            <button type="button" class="cell" data-index="7" aria-label="Bottom Center"></button>
+            <button type="button" class="cell" data-index="8" aria-label="Bottom Right"></button>
+
+        </section>
+
+
+        <!-- AI STATUS -->
+
+        <div class="ai-status" id="ai-status">
+
+            <span class="brain">🧠</span>
+
+            <div>
+
+                <strong id="ai-status-title">
+                    AI READY
+                </strong>
+
+                <small id="ai-status-text">
+                    Waiting for your move
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOVE HISTORY -->
+
+        <section class="history">
+
+            <div class="section-title">
+
+                <h3>Move History</h3>
+
+                <span id="history-count">
+                    0 moves
+                </span>
+
+            </div>
+
+            <div class="history-list" id="history-list">
+                <p class="empty-history">
+                    No moves yet
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- STATISTICS -->
+
+        <section class="statistics">
+
+            <div class="section-title">
+
+                <h3>Game Statistics</h3>
+
+            </div>
+
+
+            <div class="stat-grid">
+
+                <div>
+                    <span>Games</span>
+                    <b id="games">0</b>
+                </div>
+
+                <div>
+                    <span>Wins</span>
+                    <b id="stat-wins">0</b>
+                </div>
+
+                <div>
+                    <span>Losses</span>
+                    <b id="stat-losses">0</b>
+                </div>
+
+                <div>
+                    <span>Draws</span>
+                    <b id="stat-draws">0</b>
+                </div>
+
+                <div>
+                    <span>Win Rate</span>
+                    <b id="win-rate">0%</b>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULT -->
+
+        <section class="result hidden" id="result">
+
+            <div id="result-icon">🏆</div>
+
+            <h2 id="result-title">
+                You Win!
+            </h2>
+
+            <p id="result-text">
+                Excellent game!
+            </p>
+
+            <div class="result-stats">
+
+                <span>
+                    Moves
+                    <b id="result-moves">0</b>
+                </span>
+
+                <span>
+                    Difficulty
+                    <b id="result-level">Hard</b>
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTROLS -->
+
+        <div class="controls">
+
+            <button class="new-game" id="new-game">
+                ↻ New Round
+            </button>
+
+            <button class="reset" id="reset">
+                Reset Statistics
+            </button>
+
+        </div>
+
+
+        <footer>
+
+            <span>Ultimate Tic-Tac-Toe AI</span>
+
+            <span>•</span>
+
+            <span>Minimax + Alpha-Beta</span>
+
+        </footer>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
